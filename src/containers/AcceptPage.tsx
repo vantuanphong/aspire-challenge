@@ -1,7 +1,7 @@
 import React from 'react'
 
-const AcceptPage = () =>{
-    return <div>AcceptPgae</div>
+const ApprovedPage = () => {
+  return <div>Load table to approved personal loan</div>
 }
 
-export default AcceptPage
+export default ApprovedPage

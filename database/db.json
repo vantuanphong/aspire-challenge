@@ -1,0 +1,22 @@
+{
+  "loan": [{
+      "fullName": "vantuanphong93@gmail.com",
+      "amount": "vantuanphong93@gmail.com",
+      "loanTerm": "vantuanphong93@gmail.com",
+      "id": 1
+    },
+    {
+      "fullName": "",
+      "amount": "0",
+      "loanTerm": "0",
+      "id": 2
+    },
+    {
+      "fullName": "",
+      "amount": "0",
+      "loanTerm": "0",
+      "approved": false,
+      "id": 3
+    }
+  ]
+}
