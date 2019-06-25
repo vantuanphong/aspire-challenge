@@ -16,12 +16,15 @@ color: black;
 `;
 const HeaderComp = () =>{
     return (
-    <Header className="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
-    <ul className="nav">
+        <Header className="site-header sticky-top py-1">
+        <div className="container d-flex flex-column flex-md-row justify-content-between">
+       <ul className="nav">
         <li className="nav-item"><Link className="nav-link active" to="/"><img style={{height:'25px'}} alt="" src={logoImg}></img></Link></li>
-        <li className="nav-item"><Link className="nav-link" to="/loan"><NavBar>Accept Loan</NavBar></Link></li>
-        <li className="nav-item"><Link className="nav-link" to="/Repay"><NavBar>Repay</NavBar></Link></li>
-      </ul></Header>)
+        <li className="nav-item"><Link className="nav-link" to="/AcceptPage"><NavBar>Accept Loan</NavBar></Link></li>
+        <li className="nav-item"><Link className="nav-link" to="/RepayPage"><NavBar>Repay</NavBar></Link></li>
+      </ul>
+      </div>
+      </Header>)
 }
 
 export default HeaderComp
