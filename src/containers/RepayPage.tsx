@@ -1,38 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { Table } from 'react-bootstrap'
 import { fetchLoan } from '../services/loan.services'
+import Itable from '../interface/Itable'
+import DataTableComp from '../components/dataTableComp'
 
-const _headder = ['Fullname', 'Amount', 'Loan term']
 const RepayPage: React.FC = () => {
-  const [headder] = useState(_headder)
-  const [data, setData] = useState<Array<any>>([])
+  const [data, setData] = useState<Array<Itable>>([])
   useEffect(() => {
     const initData = async () => {
       const res = await fetchLoan()
       setData(res ? res.data : [])
     }
-
     initData()
-  }, [])
+  }, [data])
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          {headder.map((item: string, index: number) => (
-            <th key={index}>{item}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map(item => (
-          <tr>
-            <td>{item.fullName}</td>
-            <td>{item.amount}</td>
-            <td>{item.loanTerm}</td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
+    <div className="row" style={{ marginTop: 20 }}>
+      <div className="col-md-12">
+        <DataTableComp data={data} />
+      </div>
+    </div>
   )
 }
 

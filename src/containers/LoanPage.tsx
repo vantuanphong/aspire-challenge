@@ -1,11 +1,22 @@
 import React from 'react'
 import LoanForm from '../components/LoanForm'
 import { createLoan } from '../services/loan.services'
+import Itable from '../interface/Itable'
+import ArlertComp from '../components/arlertComp'
 const LoanPage: React.FC = () => {
   const _onSubmit = async (values: any) => {
-    console.log(values)
-    const args = { ...values, approved: false }
-    const res = await createLoan(args)
+    let iTable: Array<Itable> = [
+      {
+        amount: values.amount,
+        fullName: values.fullName,
+        isApprove: values.isApprove,
+        loanTerm: values.loanTerm,
+        paymentsPerMonth: Math.round(
+          parseInt(values.amount) / parseInt(values.loanTerm)
+        )
+      }
+    ]
+    const res = await createLoan(iTable)
     console.log(res)
   }
 
@@ -36,6 +47,7 @@ const LoanPage: React.FC = () => {
         </div>
         <div className="col-md-6">
           <LoanForm onSubmit={(values: any) => _onSubmit(values)} />
+          <ArlertComp />
         </div>
       </div>
     </>

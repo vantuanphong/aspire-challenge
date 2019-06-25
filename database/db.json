@@ -1,22 +1,20 @@
 {
-  "loan": [{
-      "fullName": "vantuanphong93@gmail.com",
-      "amount": "vantuanphong93@gmail.com",
-      "loanTerm": "vantuanphong93@gmail.com",
-      "id": 1
+  "loan": [
+    {
+      "id": 1,
+      "amount": "1200",
+      "fullName": "",
+      "loanTerm": "12",
+      "paymentsPerMonth": 100,
+      "isApprove": false
     },
     {
-      "fullName": "",
-      "amount": "0",
-      "loanTerm": "0",
-      "id": 2
-    },
-    {
-      "fullName": "",
-      "amount": "0",
-      "loanTerm": "0",
-      "approved": false,
-      "id": 3
+      "id": 2,
+      "amount": "1200",
+      "fullName": "Phong Van",
+      "loanTerm": "12",
+      "paymentsPerMonth": 100,
+      "isApprove": true
     }
   ]
 }

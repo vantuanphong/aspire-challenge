@@ -5,7 +5,9 @@ const LoanForm: React.FC<{ onSubmit: any }> = ({ onSubmit }) => {
   const [state, setState] = useState({
     fullName: '',
     amount: '0',
-    loanTerm: '0'
+    loanTerm: '12',
+    paymentsPerMonth: '0',
+    isApprove: false
   })
 
   return (
@@ -15,7 +17,6 @@ const LoanForm: React.FC<{ onSubmit: any }> = ({ onSubmit }) => {
         <Form.Control
           value={state.fullName}
           type="text"
-          placeholder="Enter email"
           onChange={(e: any) =>
             setState({ ...state, fullName: e.target.value })
           }
@@ -25,9 +26,10 @@ const LoanForm: React.FC<{ onSubmit: any }> = ({ onSubmit }) => {
         <Form.Label>Amount ($)</Form.Label>
         <Form.Control
           value={state.amount}
-          type="text"
-          placeholder="Enter email"
-          onChange={(e: any) => setState({ ...state, amount: e.target.value })}
+          type="number"
+          onChange={(e: any) => {
+            setState({ ...state, amount: e.target.value })
+          }}
         />
       </Form.Group>
 
@@ -35,17 +37,35 @@ const LoanForm: React.FC<{ onSubmit: any }> = ({ onSubmit }) => {
         <Form.Label>Loan term (months)</Form.Label>
         <Form.Control
           value={state.loanTerm}
-          type="text"
-          placeholder="Enter email"
-          onChange={(e: any) =>
+          min="12"
+          max="36"
+          type="number"
+          onChange={(e: any) => {
             setState({ ...state, loanTerm: e.target.value })
-          }
+          }}
         />
       </Form.Group>
-
-      <Button variant="primary" onClick={() => onSubmit(state)}>
-        Submit
-      </Button>
+      <label className="text-success" style={{ marginRight: 15 }}>
+        Total payment:{' '}
+        <span>
+          {' '}
+          {parseInt(state.amount) + (parseInt(state.amount) * 15) / 100} $
+        </span>
+      </label>
+      <br />
+      <label style={{ marginRight: 15 }}>
+        Loan amount: {parseInt(state.amount)} $
+      </label>
+      <br />
+      <label>
+        Repay per month:{' '}
+        {Math.round(parseInt(state.amount) / parseInt(state.loanTerm))} $
+      </label>
+      <div className="text-right">
+        <Button variant="success" onClick={() => onSubmit(state)}>
+          Submit
+        </Button>
+      </div>
     </Form>
   )
 }
