@@ -32,3 +32,34 @@ code {
 .modal-backdrop.show {
   opacity: 0.1 !important;
 }
+
+.lead {
+  font-size: 1.5rem !important;
+  color: #0ed267 !important;
+  font-weight: bolder !important;
+}
+
+.display-4 {
+  font-size: 3.5rem !important;
+  font-weight: bold !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0px !important;
+  text-transform: uppercase !important;
+}
+
+.card-header:first-child {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+  background-color: #0ed267 !important;
+  color: white;
+}
+
+.text-success {
+  color: #0ed267 !important;
+}
+
+.btn-outline-success:hover {
+  color: #28a745 !important;
+  background-color: unset !important;
+  border-color: #28a745 !important;
+  border: 3px solid !important;
+}

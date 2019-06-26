@@ -1,13 +1,5 @@
 import React, { useState } from 'react'
-import {
-  Table,
-  Button,
-  OverlayTrigger,
-  Popover,
-  Form,
-  Overlay,
-  Modal
-} from 'react-bootstrap'
+import { Table, Button, Form, Modal } from 'react-bootstrap'
 
 const _headder = [
   'Fullname',
@@ -23,10 +15,20 @@ const DataTableComp: React.FC<{
   onCancelApprove?: any
   onPay?: any
   type?: string
-}> = ({ data, onApprove, onCancelApprove, onPay, type }) => {
+  setShowOverlay?: any
+  showOverlay?: any
+}> = ({
+  data,
+  onApprove,
+  onCancelApprove,
+  onPay,
+  type,
+  setShowOverlay,
+  showOverlay
+}) => {
   const [rePayMoney, setRePayMoney] = useState('0')
   const [headder] = useState(_headder)
-  const [showOverlay, setShowOverlay] = useState(false)
+
   const smClose = () => setShowOverlay(false)
   return (
     <Table className="text-center" striped bordered hover>
@@ -56,17 +58,13 @@ const DataTableComp: React.FC<{
                 {Number(item.amount) === 0 ? (
                   <>
                     <Button
+                      disabled
                       style={{ marginRight: 10 }}
-                      onClick={() => onApprove(item)}
                       className="btn btn-sm btn-success"
                     >
                       Approve
                     </Button>
-                    <Button
-                      disabled
-                      onClick={() => onCancelApprove(item)}
-                      className="btn btn-sm btn-danger"
-                    >
+                    <Button disabled className="btn btn-sm btn-danger">
                       Cancel
                     </Button>
                   </>
@@ -74,11 +72,15 @@ const DataTableComp: React.FC<{
                   <>
                     <Button
                       style={{ marginRight: 10 }}
+                      onClick={() => onApprove(item)}
                       className="btn btn-sm btn-success"
                     >
                       Approve
                     </Button>
-                    <Button disabled className="btn btn-sm btn-danger">
+                    <Button
+                      onClick={() => onCancelApprove(item)}
+                      className="btn btn-sm btn-danger"
+                    >
                       Cancel
                     </Button>
                   </>

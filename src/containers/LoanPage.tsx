@@ -36,7 +36,7 @@ const LoanPage: React.FC = () => {
       if (res) {
         setAlert([
           {
-            message: 'Create load successful !',
+            message: 'Create loan successful !',
             variant: 'success'
           }
         ])
