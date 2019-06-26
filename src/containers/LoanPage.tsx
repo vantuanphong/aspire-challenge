@@ -1,25 +1,70 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LoanForm from '../components/LoanForm'
 import { createLoan } from '../services/loan.services'
-import Itable from '../interface/Itable'
-import ArlertComp from '../components/arlertComp'
+import ITable from '../interface/ITable'
+import AlertComp from '../components/alertComp'
+import IAlert from '../interface/IAlert'
 const LoanPage: React.FC = () => {
+  const [alert, setAlert] = useState<Array<IAlert>>([])
+  const [handleAlert, setHandleAlert] = useState(false)
+
   const _onSubmit = async (values: any) => {
-    let iTable: Array<Itable> = [
-      {
-        amount: values.amount,
-        fullName: values.fullName,
-        isApprove: values.isApprove,
-        loanTerm: values.loanTerm,
-        paymentsPerMonth: Math.round(
-          parseInt(values.amount) / parseInt(values.loanTerm)
-        )
+    let _message = isValid(values)
+    if (_message) {
+      setAlert([
+        {
+          message: _message,
+          variant: 'danger'
+        }
+      ])
+      handleShow()
+    } else {
+      let ITable: Array<ITable> = [
+        {
+          amount: values.amount,
+          fullName: values.fullName,
+          isApprove: values.isApprove,
+          loanTerm: values.loanTerm,
+          paymentsPerWeek: Math.round(
+            Math.round(
+              ((Number(values.amount) * 15) / 100 + Number(values.amount)) /
+                Number(values.loanTerm) /
+                4
+            )
+          )
+        }
+      ]
+      const res = await createLoan(ITable)
+      if (res) {
+        setAlert([
+          {
+            message: 'Create loadn successful !',
+            variant: 'success'
+          }
+        ])
+        handleShow()
       }
-    ]
-    const res = await createLoan(iTable)
-    console.log(res)
+      console.log(res)
+    }
   }
 
+  const isValid = (values: any) => {
+    let message = ''
+    if (!values.fullName) {
+      message = 'Fullname is require !'
+      return message
+    }
+    if (values.amount < 1500) {
+      message = 'Amount of loan must be equal 1500$ or higher !'
+      return message
+    }
+    if (values.loanTerm > 36) {
+      message = 'Loanterm must be equal 36 or higher'
+      return message
+    }
+  }
+  const handleDismiss = () => setHandleAlert(false)
+  const handleShow = () => setHandleAlert(true)
   return (
     <>
       <div className="row">
@@ -46,8 +91,13 @@ const LoanPage: React.FC = () => {
           </div>
         </div>
         <div className="col-md-6">
+          <br />
+          <AlertComp
+            onClose={handleDismiss}
+            message={alert[0] ? alert[0].message : ''}
+            variant={alert[0] ? alert[0].variant : ''}
+          />
           <LoanForm onSubmit={(values: any) => _onSubmit(values)} />
-          <ArlertComp />
         </div>
       </div>
     </>

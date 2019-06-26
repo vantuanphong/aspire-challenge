@@ -1,10 +1,10 @@
-interface Itable {
+interface ITable {
   id?: number
   fullName?: string
   amount?: number
   loanTerm?: number
-  paymentsPerMonth?: number
+  paymentsPerWeek?: number
   isApprove?: boolean
 }
 
-export default Itable
+export default ITable

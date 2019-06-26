@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Table, Button, OverlayTrigger, Popover } from 'react-bootstrap'
+import { Table, Button, OverlayTrigger, Popover, Form } from 'react-bootstrap'
+
 const _headder = [
   'Fullname',
   'Amount',
   'Loan term',
-  'Payment',
+  'Payment Per Week',
   'Approve',
   'Action'
 ]
@@ -14,9 +15,20 @@ const DataTableComp: React.FC<{
   onCancelApprove?: any
   onPay?: any
   type?: string
-}> = ({ data, onApprove, onCancelApprove, onPay, type }) => {
-  const [rePayMoney, SetRePayMoney] = useState()
+  showOverlay?: boolean
+  setShowOverlay?: any
+}> = ({
+  data,
+  onApprove,
+  onCancelApprove,
+  onPay,
+  type,
+  showOverlay,
+  setShowOverlay
+}) => {
+  const [rePayMoney, setRePayMoney] = useState('0')
   const [headder] = useState(_headder)
+
   return (
     <Table className="text-center" striped bordered hover>
       <thead>
@@ -32,7 +44,7 @@ const DataTableComp: React.FC<{
             <td>{item.fullName}</td>
             <td>{item.amount}</td>
             <td>{item.loanTerm}</td>
-            <td>{item.paymentsPerMonth}</td>
+            <td>{item.paymentsPerWeek}</td>
             <td>
               {!item.isApprove ? (
                 <span className="text-danger">Not approve</span>
@@ -59,23 +71,23 @@ const DataTableComp: React.FC<{
             ) : (
               <td className="text-center">
                 <OverlayTrigger
-                  trigger={['click']}
+                  defaultShow={showOverlay}
+                  trigger="click"
                   placement="right"
                   overlay={
                     <Popover
                       id={`popover-positioned-right`}
                       title={`It's time to repay !`}
                     >
-                      <input
+                      <Form.Control
                         type="number"
-                        className="form-control"
                         value={rePayMoney}
-                        onChange={(e: any) => SetRePayMoney(e.target.value)}
+                        onChange={(e: any) => setRePayMoney(e.target.value)}
                       />
                       <br />
                       <div className="text-right">
                         <Button
-                          onClick={() => onPay(item)}
+                          onClick={() => onPay(item, rePayMoney)}
                           variant="outline-success"
                         >
                           Repay{' '}
@@ -84,7 +96,18 @@ const DataTableComp: React.FC<{
                     </Popover>
                   }
                 >
-                  <Button variant="secondary">Repay </Button>
+                  {Number(item.amount) === 0 ? (
+                    <Button disabled variant="secondary">
+                      Repay{' '}
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => setShowOverlay(true)}
+                      variant="secondary"
+                    >
+                      Repay{' '}
+                    </Button>
+                  )}
                 </OverlayTrigger>
               </td>
             )}

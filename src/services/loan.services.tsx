@@ -1,5 +1,5 @@
 import Api from '../configs/api'
-import Itable from '../interface/Itable'
+import ITable from '../interface/ITable'
 
 const url = 'loan'
 
@@ -21,18 +21,9 @@ export const fetchLoan = async () => {
   }
 }
 
-export const updateLoan = async (args: Array<Itable>) => {
+export const updateLoan = async (args: Array<ITable>) => {
   try {
     const res = await Api.put(`${url}/${args[0].id}`, ...args)
-    return res
-  } catch (err) {
-    console.log(err)
-  }
-}
-
-export const deleteLoan = async (id?: number) => {
-  try {
-    const res = await Api.delete(`${url}/${id}`)
     return res
   } catch (err) {
     console.log(err)

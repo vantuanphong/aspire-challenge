@@ -6,7 +6,7 @@ const LoanForm: React.FC<{ onSubmit: any }> = ({ onSubmit }) => {
     fullName: '',
     amount: '0',
     loanTerm: '12',
-    paymentsPerMonth: '0',
+    paymentsPerWeek: '0',
     isApprove: false
   })
 
@@ -49,19 +49,24 @@ const LoanForm: React.FC<{ onSubmit: any }> = ({ onSubmit }) => {
         Total payment:{' '}
         <span>
           {' '}
-          {parseInt(state.amount) + (parseInt(state.amount) * 15) / 100} $
+          {Number(state.amount) + (Number(state.amount) * 15) / 100} $
         </span>
       </label>
       <br />
       <label style={{ marginRight: 15 }}>
-        Loan amount: {parseInt(state.amount)} $
+        Loan amount: {Number(state.amount)} $
       </label>
       <br />
       <label>
-        Repay per month:{' '}
-        {Math.round(parseInt(state.amount) / parseInt(state.loanTerm))} $
+        Repay per week:{' '}
+        {Math.round(
+          ((Number(state.amount) * 15) / 100 + Number(state.amount)) /
+            Number(state.loanTerm) /
+            4
+        )}{' '}
+        $
       </label>
-      <div className="text-right">
+      <div className="text-center">
         <Button variant="success" onClick={() => onSubmit(state)}>
           Submit
         </Button>
