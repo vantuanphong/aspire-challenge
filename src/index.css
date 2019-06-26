@@ -27,3 +27,8 @@ code {
   font-size: 20px;
   margin-bottom: 15px;
 }
+
+/* modav  */
+.modal-backdrop.show {
+  opacity: 0.1 !important;
+}

@@ -10,7 +10,6 @@ const RepayPage: React.FC = () => {
   const [check, setCheck] = useState(true)
   const [alert, setAlert] = useState<Array<IAlert>>([])
   const [handleAlert, setHandleAlert] = useState(false)
-  const [showOverlay, setShowOverlay] = useState(false)
   useEffect(() => {
     const initData = async () => {
       if (check) {
@@ -63,7 +62,6 @@ const RepayPage: React.FC = () => {
         ])
         handleShow()
         setCheck(true)
-        setShowOverlay(false)
       }
       console.log(res)
     }
@@ -84,8 +82,6 @@ const RepayPage: React.FC = () => {
             onPay(item, Number(rePayMoney))
           }
           data={data}
-          showOverlay={showOverlay}
-          setShowOverlay={setShowOverlay}
         />
       </div>
     </div>

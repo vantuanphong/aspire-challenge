@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Table, Button, OverlayTrigger, Popover, Form } from 'react-bootstrap'
+import {
+  Table,
+  Button,
+  OverlayTrigger,
+  Popover,
+  Form,
+  Overlay,
+  Modal
+} from 'react-bootstrap'
 
 const _headder = [
   'Fullname',
@@ -15,20 +23,11 @@ const DataTableComp: React.FC<{
   onCancelApprove?: any
   onPay?: any
   type?: string
-  showOverlay?: boolean
-  setShowOverlay?: any
-}> = ({
-  data,
-  onApprove,
-  onCancelApprove,
-  onPay,
-  type,
-  showOverlay,
-  setShowOverlay
-}) => {
+}> = ({ data, onApprove, onCancelApprove, onPay, type }) => {
   const [rePayMoney, setRePayMoney] = useState('0')
   const [headder] = useState(_headder)
-
+  const [showOverlay, setShowOverlay] = useState(false)
+  const smClose = () => setShowOverlay(false)
   return (
     <Table className="text-center" striped bordered hover>
       <thead>
@@ -54,31 +53,62 @@ const DataTableComp: React.FC<{
             </td>
             {type === 'approve' ? (
               <td>
-                <Button
-                  style={{ marginRight: 10 }}
-                  onClick={() => onApprove(item)}
-                  className="btn btn-sm btn-success"
-                >
-                  Approve
-                </Button>
-                <Button
-                  onClick={() => onCancelApprove(item)}
-                  className="btn btn-sm btn-danger"
-                >
-                  Cancel
-                </Button>
+                {Number(item.amount) === 0 ? (
+                  <>
+                    <Button
+                      style={{ marginRight: 10 }}
+                      onClick={() => onApprove(item)}
+                      className="btn btn-sm btn-success"
+                    >
+                      Approve
+                    </Button>
+                    <Button
+                      disabled
+                      onClick={() => onCancelApprove(item)}
+                      className="btn btn-sm btn-danger"
+                    >
+                      Cancel
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      style={{ marginRight: 10 }}
+                      className="btn btn-sm btn-success"
+                    >
+                      Approve
+                    </Button>
+                    <Button disabled className="btn btn-sm btn-danger">
+                      Cancel
+                    </Button>
+                  </>
+                )}
               </td>
             ) : (
               <td className="text-center">
-                <OverlayTrigger
-                  defaultShow={showOverlay}
-                  trigger="click"
-                  placement="right"
-                  overlay={
-                    <Popover
-                      id={`popover-positioned-right`}
-                      title={`It's time to repay !`}
-                    >
+                {Number(item.amount) === 0 ? (
+                  <Button variant="secondary" disabled className="btn-sm">
+                    Repay
+                  </Button>
+                ) : (
+                  <Button
+                    className="btn-sm"
+                    variant="success"
+                    onClick={() => setShowOverlay(true)}
+                  >
+                    Repay
+                  </Button>
+                )}
+                <Modal
+                  size="sm"
+                  show={showOverlay}
+                  onHide={smClose}
+                  style={{ top: '25%' }}
+                  aria-labelledby="example-modal-sizes-title-sm"
+                >
+                  <div className="row" style={{ padding: '15px' }}>
+                    <div className="col-md-12">
+                      <h6>It's time to repay !</h6>
                       <Form.Control
                         type="number"
                         value={rePayMoney}
@@ -93,22 +123,9 @@ const DataTableComp: React.FC<{
                           Repay{' '}
                         </Button>
                       </div>
-                    </Popover>
-                  }
-                >
-                  {Number(item.amount) === 0 ? (
-                    <Button disabled variant="secondary">
-                      Repay{' '}
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={() => setShowOverlay(true)}
-                      variant="secondary"
-                    >
-                      Repay{' '}
-                    </Button>
-                  )}
-                </OverlayTrigger>
+                    </div>
+                  </div>
+                </Modal>
               </td>
             )}
           </tr>

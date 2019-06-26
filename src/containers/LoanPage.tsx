@@ -19,18 +19,16 @@ const LoanPage: React.FC = () => {
       ])
       handleShow()
     } else {
+      let _totalAmount =
+        Number(values.amount) + (Number(values.amount) * 15) / 100
       let ITable: Array<ITable> = [
         {
-          amount: values.amount,
+          amount: _totalAmount,
           fullName: values.fullName,
           isApprove: values.isApprove,
           loanTerm: values.loanTerm,
           paymentsPerWeek: Math.round(
-            Math.round(
-              ((Number(values.amount) * 15) / 100 + Number(values.amount)) /
-                Number(values.loanTerm) /
-                4
-            )
+            _totalAmount / Number(values.loanTerm) / 4
           )
         }
       ]
@@ -38,7 +36,7 @@ const LoanPage: React.FC = () => {
       if (res) {
         setAlert([
           {
-            message: 'Create loadn successful !',
+            message: 'Create load successful !',
             variant: 'success'
           }
         ])
