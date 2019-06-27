@@ -2,19 +2,19 @@
   "loan": [
     {
       "id": 1,
-      "amount": "1200",
-      "fullName": "",
+      "amount": 2300,
+      "fullName": "Peon",
       "loanTerm": "12",
-      "paymentsPerMonth": 100,
+      "paymentsPerWeek": 48,
       "isApprove": false
     },
     {
-      "id": 2,
-      "amount": "1200",
-      "fullName": "Phong Van",
+      "id": 1,
+      "amount": 2300,
+      "fullName": "John",
       "loanTerm": "12",
-      "paymentsPerMonth": 100,
-      "isApprove": true
+      "paymentsPerWeek": 48,
+      "isApprove": false
     }
   ]
 }
