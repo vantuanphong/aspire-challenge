@@ -13,10 +13,13 @@ const DataTableComp: React.FC<{
   data?: any
   onApprove?: any
   onCancelApprove?: any
+  onDeleteLoan?: any
   onPay?: any
   type?: string
   setShowOverlay?: any
   showOverlay?: any
+  setShowWarningMessage?: any
+  showWarningMessage?: any
 }> = ({
   data,
   onApprove,
@@ -24,12 +27,20 @@ const DataTableComp: React.FC<{
   onPay,
   type,
   setShowOverlay,
-  showOverlay
+  showOverlay,
+  setShowWarningMessage,
+  showWarningMessage,
+  onDeleteLoan
 }) => {
   const [rePayMoney, setRePayMoney] = useState('0')
   const [headder] = useState(_headder)
 
-  const smClose = () => setShowOverlay(false)
+  const smClose = () => {
+    setShowOverlay(false)
+  }
+  const closeWarningMessage = () => {
+    setShowWarningMessage(false)
+  }
   return (
     <Table className="text-center" striped bordered hover>
       <thead>
@@ -64,8 +75,15 @@ const DataTableComp: React.FC<{
                     >
                       Approve
                     </Button>
-                    <Button disabled className="btn btn-sm btn-danger">
+                    <Button
+                      style={{ marginRight: 10 }}
+                      disabled
+                      className="btn btn-sm btn-warning"
+                    >
                       Cancel
+                    </Button>
+                    <Button disabled className="btn btn-sm btn-danger">
+                      Delete
                     </Button>
                   </>
                 ) : (
@@ -78,13 +96,48 @@ const DataTableComp: React.FC<{
                       Approve
                     </Button>
                     <Button
+                      style={{ marginRight: 10 }}
                       onClick={() => onCancelApprove(item)}
-                      className="btn btn-sm btn-danger"
+                      className="btn btn-sm btn-warning"
                     >
                       Cancel
                     </Button>
+                    <Button
+                      onClick={() => setShowWarningMessage(true)}
+                      className="btn btn-sm btn-danger"
+                    >
+                      Delete
+                    </Button>
                   </>
                 )}
+                <Modal
+                  size="sm"
+                  show={showWarningMessage}
+                  onHide={closeWarningMessage}
+                  style={{ top: '25%' }}
+                  aria-labelledby="example-modal-sizes-title-sm"
+                >
+                  <div className="row" style={{ padding: '15px' }}>
+                    <div className="col-md-12">
+                      <h6>Are you sure to delete this loan ?</h6>
+                      <div className="text-center">
+                        <Button
+                          style={{ marginRight: 15 }}
+                          onClick={() => onDeleteLoan(item)}
+                          variant="outline-danger"
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          onClick={() => setShowWarningMessage(false)}
+                          variant="outline-dark"
+                        >
+                          No
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </Modal>
               </td>
             ) : (
               <td className="text-center">

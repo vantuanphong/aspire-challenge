@@ -4,6 +4,7 @@ import { createLoan } from '../services/loan.services'
 import ITable from '../interface/ITable'
 import AlertComp from '../components/alertComp'
 import IAlert from '../interface/IAlert'
+import { sleep } from '../services/util'
 const LoanPage: React.FC = () => {
   const [alert, setAlert] = useState<Array<IAlert>>([])
   const [handleAlert, setHandleAlert] = useState(false)
@@ -56,13 +57,17 @@ const LoanPage: React.FC = () => {
       message = 'Amount of loan must be equal 1500$ or higher !'
       return message
     }
-    if (values.loanTerm > 36) {
-      message = 'Loanterm must be equal 36 or higher'
+    if (values.loanTerm < 12 || values.loanTerm > 36) {
+      message = 'Loanterm must be more than 12 and lower than 36'
       return message
     }
   }
   const handleDismiss = () => setHandleAlert(false)
-  const handleShow = () => setHandleAlert(true)
+  const handleShow = async () => {
+    setHandleAlert(true)
+    await sleep(3000)
+    handleDismiss()
+  }
   return (
     <>
       <div className="row">
@@ -91,6 +96,7 @@ const LoanPage: React.FC = () => {
         <div className="col-md-6">
           <br />
           <AlertComp
+            show={handleAlert}
             onClose={handleDismiss}
             message={alert[0] ? alert[0].message : ''}
             variant={alert[0] ? alert[0].variant : ''}

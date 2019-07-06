@@ -4,6 +4,7 @@ import ITable from '../interface/ITable'
 import DataTableComp from '../components/dataTableComp'
 import AlertComp from '../components/alertComp'
 import IAlert from '../interface/IAlert'
+import { sleep } from '../services/util'
 
 const RepayPage: React.FC = () => {
   const [data, setData] = useState<Array<ITable>>([])
@@ -70,11 +71,16 @@ const RepayPage: React.FC = () => {
   }
 
   const handleDismiss = () => setHandleAlert(false)
-  const handleShow = () => setHandleAlert(true)
+  const handleShow = async () => {
+    setHandleAlert(true)
+    await sleep(3000)
+    handleDismiss()
+  }
   return (
     <div className="row" style={{ marginTop: 20 }}>
       <div className="col-md-12">
         <AlertComp
+          show={handleAlert}
           onClose={handleDismiss}
           message={alert[0] ? alert[0].message : ''}
           variant={alert[0] ? alert[0].variant : ''}

@@ -29,3 +29,12 @@ export const updateLoan = async (args: Array<ITable>) => {
     console.log(err)
   }
 }
+
+export const deleteLoan = async (id?: number) => {
+  try {
+    const res = await Api.delete(`${url}/${id}`)
+    return res
+  } catch (err) {
+    console.log(err)
+  }
+}

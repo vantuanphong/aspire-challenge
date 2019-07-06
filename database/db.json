@@ -3,17 +3,25 @@
     {
       "id": 1,
       "amount": 2300,
-      "fullName": "Peon",
-      "loanTerm": "12",
-      "paymentsPerWeek": 48,
-      "isApprove": false
-    },
-    {
-      "id": 1,
-      "amount": 2300,
       "fullName": "John",
       "loanTerm": "12",
       "paymentsPerWeek": 48,
+      "isApprove": true
+    },
+    {
+      "id": 2,
+      "amount": 3450,
+      "fullName": "Momo",
+      "loanTerm": "12",
+      "paymentsPerWeek": 72,
+      "isApprove": false
+    },
+    {
+      "id": 3,
+      "amount": 34500,
+      "fullName": "Peon",
+      "loanTerm": "12",
+      "paymentsPerWeek": 719,
       "isApprove": false
     }
   ]

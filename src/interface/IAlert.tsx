@@ -3,6 +3,7 @@ interface IAlert {
   message?: string
   dismissible?: boolean
   onClose?: any
+  show?: any
 }
 
 export default IAlert

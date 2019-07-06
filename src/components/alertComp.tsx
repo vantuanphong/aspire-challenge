@@ -7,6 +7,7 @@ const AlertComp: React.FC<IAlert> = props => {
     <Alert
       onClose={props.onClose}
       dismissible={props.dismissible}
+      show={props.show}
       variant={!props.variant ? undefined : props.variant}
     >
       {props.message}
